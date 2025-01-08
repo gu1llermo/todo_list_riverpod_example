@@ -27,7 +27,7 @@ final uncompletedTodosCountProvider = AutoDisposeProvider<int>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UncompletedTodosCountRef = AutoDisposeProviderRef<int>;
-String _$filteredTodosHash() => r'43c6c06dceb86b90739f2d676a53e9a3d50b962b';
+String _$filteredTodosHash() => r'65bd7e74e4b9276192a86d42b3440d97058c0f81';
 
 /// See also [filteredTodos].
 @ProviderFor(filteredTodos)
@@ -73,7 +73,7 @@ final currentTodoProvider = AutoDisposeProvider<Todo>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentTodoRef = AutoDisposeProviderRef<Todo>;
-String _$todoListHash() => r'00f5d7824a81e335e283b88d11ad2cffc6b9c1fd';
+String _$todoListHash() => r'c770a46c439cd068ba04cf59695b7b3f92e80324';
 
 /// An object that controls a list of [Todo].
 ///
