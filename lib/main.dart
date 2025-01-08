@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/providers.dart';
 
-/// Some keys used for testing
 final addTodoKey = UniqueKey();
 final activeFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
@@ -234,7 +233,6 @@ class _TodoItemState extends ConsumerState<TodoItem> {
           if (focused) {
             textEditingController.text = todo.description;
           } else {
-            // Commit changes only when the textfield is unfocused, for performance
             ref
                 .read(todoListProvider.notifier)
                 .edit(id: todo.id, description: textEditingController.text);

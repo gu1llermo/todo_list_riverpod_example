@@ -7,7 +7,6 @@ part 'providers.g.dart';
 
 const _uuid = Uuid();
 
-/// An object that controls a list of [Todo].
 @Riverpod(keepAlive: true, dependencies: [])
 class TodoList extends _$TodoList {
   @override
@@ -60,7 +59,6 @@ class TodoList extends _$TodoList {
   }
 }
 
-/// The different ways to filter the list of todos
 enum TodoFilter {
   all,
   active,
@@ -89,7 +87,26 @@ int uncompletedTodosCount(Ref ref) {
 @Riverpod(keepAlive: false, dependencies: [TodoListFilter, TodoList])
 List<Todo> filteredTodos(Ref ref) {
   final filter = ref.watch(todoListFilterProvider);
-  final todos = ref.watch(todoListProvider);
+  final todos = ref.read(todoListProvider);
+
+  ref.listen(
+    todoListProvider,
+    (previous, next) {
+      if (previous == null || previous.length != next.length) {
+        ref.invalidateSelf();
+        return;
+      }
+
+      for (var i = 0; i < next.length; i++) {
+        final completedPrevius = previous[i].completed;
+        final completedNext = next[i].completed;
+        if (completedPrevius != completedNext) {
+          ref.invalidateSelf();
+          break;
+        }
+      }
+    },
+  );
 
   switch (filter) {
     case TodoFilter.completed:
@@ -101,13 +118,6 @@ List<Todo> filteredTodos(Ref ref) {
   }
 }
 
-/// A provider which exposes the [Todo] displayed by a [TodoItem].
-///
-/// By retrieving the [Todo] through a provider instead of through its
-/// constructor, this allows [TodoItem] to be instantiated using the `const` keyword.
-///
-/// This ensures that when we add/remove/edit todos, only what the
-/// impacted widgets rebuilds, instead of the entire list of items.
 @riverpod
 Todo currentTodo(Ref ref) {
   throw UnimplementedError();
