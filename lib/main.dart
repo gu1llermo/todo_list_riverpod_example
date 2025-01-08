@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'providers/providers.dart';
 
+// Claves únicas para identificar widgets específicos en la interfaz
 final addTodoKey = UniqueKey();
 final activeFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
 final allFilterKey = UniqueKey();
 
+// Punto de entrada de la aplicación, envuelto en ProviderScope para habilitar Riverpod
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Widget principal que contiene la lista de tareas
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
@@ -32,6 +35,7 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class _HomeState extends ConsumerState<Home> {
+  //Controlador para el campo de texto de nueva tarea
   late TextEditingController newTodoController;
 
   @override
@@ -48,9 +52,11 @@ class _HomeState extends ConsumerState<Home> {
 
   @override
   Widget build(BuildContext context) {
+    //Observa los cambios en la lista filtrada de tareas
     final todos = ref.watch(filteredTodosProvider);
 
     return GestureDetector(
+      // Oculta el teclado al tocar fuera de los campos de texto
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: ListView(
@@ -93,6 +99,7 @@ class _HomeState extends ConsumerState<Home> {
   }
 }
 
+// Widget para la barra de herramientas que contiene los filtros
 class Toolbar extends ConsumerWidget {
   const Toolbar({
     super.key,
@@ -167,6 +174,7 @@ class Toolbar extends ConsumerWidget {
   }
 }
 
+// Widget para el título de la aplicación
 class Title extends StatelessWidget {
   const Title({super.key});
 
@@ -185,6 +193,7 @@ class Title extends StatelessWidget {
   }
 }
 
+// Widget para mostrar cada tarea individual
 class TodoItem extends ConsumerStatefulWidget {
   const TodoItem({super.key});
 
